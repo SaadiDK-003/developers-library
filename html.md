@@ -1,5 +1,3 @@
-# testing
+# HTML ~ HyperText Markup Language
 
-♦ point 1
-♦ point 2
-♦ point 3
+♦ Stuff related to HTML will be uploaded here...
