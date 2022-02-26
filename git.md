@@ -16,15 +16,25 @@ Github Basic commands everyone should know ☻
   * git push origin `[branch-name]` ~ if you want specific branch stuff to upload on github.
 
 ### *Mostly used in working environment are as follows: ~ top to bottom step by step*
-###### Not telling all the scenarios that occurs
+###### Not telling all the scenarios that occurs, *freely ask if needed ☻*
 1. git branch ~ *we check are we standing on `main` branch or the one we created.*
-   1. if we are not so first switch to `main` branch -> *`git checkout main`*
-2. git git pull ~ make sure you are `UpToDate` with your `main` branch.
+   * if we are not so first switch to `main` branch -> *`git checkout main`*
+2. git pull ~ make sure you are `UpToDate` with your `main` branch.
 3. git status ~ see the changes you have made or you are going to do.
-4. 
+4. git checkout -b `[new-branch-name]` ~ this is how we create a new branch we can update `main` branch too but this is a good way if you are working in a professional environment you will see the benefits of it. after creating you will switch to new branch.
+5. git add ~ `git add [file or folder path]`
+   * eg. git add index.html css/ js/ ... etc.
+6. git commit -m "your message..." ~ after adding your files or folders you must add this.
+7. git push origin `[new-branch]` ~ this is how you can push your changes of newly created branch on github repo.
+> and then visit your `repository` on browser, and do rest of stuff, that's simple. you can ask if have any query. ☻
+>> you can use GitHub Desktop Version too. but personally I like `terminal` ♥ 
+
+---
 
 ## ♦ Dangerous Commands ♦
 ### To remove folder/directory only from git repository and not from the local try 3 simple commands.
 1. git rm -r --cached FolderName
 2. git commit -m "Removed folder from repository"
 3. git push origin master
+---
+#### Regards, [SaadiDK](https://github.com/SaadiDK-003/)
