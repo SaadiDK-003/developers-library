@@ -15,4 +15,4 @@ Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
 * install FlameShot `very useful tool for taking screenShot and editing`
 
 #### Install LAMP ~ ( Linux Apache MySQL PHP ) 
-
+Soruce Link: [Install LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04)
