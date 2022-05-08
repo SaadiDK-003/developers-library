@@ -1,8 +1,8 @@
-# Ubuntu ~ 20.04
+# Ubuntu ~ 20.04.4
 
 ♦ Stuff related to Ubuntu will be uploaded here...
 
-Downlaod Link https://releases.ubuntu.com/20.04.4/
+Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
 
 #### After installing:
 * sudo apt upgrade
@@ -13,3 +13,6 @@ Downlaod Link https://releases.ubuntu.com/20.04.4/
 * install VS Code `&` Sublime Text
 * install Chrome `FireFox preinstalled`
 * install FlameShot `very useful tool for taking screenShot and editing`
+
+#### Install LAMP ~ ( Linux Apache MySQL PHP ) 
+
