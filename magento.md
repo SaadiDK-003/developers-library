@@ -40,3 +40,8 @@ bin/magento setup:install \
 --elasticsearch-index-prefix=magento2 \
 --elasticsearch-timeout=15 
 ```
+
+```python
+bin/magento help setup:install
+
+```
