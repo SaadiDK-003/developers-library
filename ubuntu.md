@@ -55,5 +55,5 @@ sudo systemctl reload apache2
 ```javascript
 sudo subl etc/hosts
 ``` 
-
+> after opening hosts file add this `127.0.0.1 magento.local`
 
