@@ -28,7 +28,7 @@ Soruce Link: [Install ElasticSearch](https://www.digitalocean.com/community/tuto
 
 * **`Virtual Host`**
 ```php
-$sudo subl /etc/apache2/sites-available/000-default.conf
+sudo subl /etc/apache2/sites-available/000-default.conf
 ```
 ```python
 <VirtualHost *:80>
@@ -45,6 +45,9 @@ $sudo subl /etc/apache2/sites-available/000-default.conf
         </Directory>
     </VirtualHost>
 ```
-
+```php
+sudo systemctl reload apache2
+```
+* **`Hosts`** ~ file
 
 
