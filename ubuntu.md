@@ -15,14 +15,17 @@ Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
 * install FlameShot `very useful tool for taking screenShot and editing`
 
 #### Install LAMP ~ ( Linux Apache MySQL PHP ) 
-Soruce Link: [Install LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04)
+Source Link: [Install LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04)
 * sudo a2enmod rewrite ~ `restart apache`
 
 ### OwnerShip
 * sudo chown -R **`$USER:$USER`** /var/www/`your_domain` ~ in our case it is **`html`**
 
+### Install Composer
+Source Link: [Composer](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-20-04)
+
 #### Install ElasticSearch
-Soruce Link: [Install ElasticSearch](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-20-04)
+Source Link: [ElasticSearch](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-20-04)
 
 ### Other Stuff ~ after doing all above things:
 
