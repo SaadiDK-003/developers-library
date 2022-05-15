@@ -1,6 +1,8 @@
 # Magento 2
 ♦ Stuff releated to `Magento 2` will be uploaded here...
 
+### Before doing this please checkout `Ubuntu Section` [Install Ubuntu and useful stuff to start with Magento](https://github.com/SaadiDK-003/developers-library/blob/master/ubuntu.md)
+
 #### Magento Open Source ~ `Composer` link
 * change `<install-directory-name>` to your directory.
 ```php
