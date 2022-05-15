@@ -13,6 +13,7 @@ Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
 * install VS Code `&` Sublime Text
 * install Chrome `FireFox preinstalled`
 * install FlameShot `very useful tool for taking screenShot and editing`
+* Install [phpMyAdmin](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-20-04) or [Dbeaver](https://computingforgeeks.com/install-and-configure-dbeaver-on-ubuntu-debian/) for MySQL ease of access.
 
 #### Install LAMP ~ ( Linux Apache MySQL PHP ) 
 Source Link: [Install LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04)
