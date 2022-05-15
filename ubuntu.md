@@ -57,9 +57,3 @@ sudo subl etc/hosts
 ``` 
 > after opening hosts file add this `127.0.0.1 magento.local`
 
-### ♦ Issues sometimes you might encounter
-1. If it's a PHP extension missing issue you can run this line of code in your terminal.
-```python
-sudo apt install php7.4 libapache2-mod-php7.4 php7.4-common php7.4-gmp php7.4-curl php7.4-soap php7.4-bcmath php7.4-intl php7.4-mbstring php7.4-xmlrpc php7.4-mcrypt php7.4-mysql php7.4-gd php7.4-xml php7.4-cli php7.4-zip
-```
-
