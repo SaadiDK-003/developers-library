@@ -6,7 +6,7 @@
 #### Magento Open Source ~ `Composer` link
 * change `<install-directory-name>` to your directory.
 ```php
-$ sudo composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
+sudo composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
 ```
 #### Set file permissions
 * You must set read-write permissions for the web server group before you install the Magento software. This is necessary so that the command line can write files to the Magento file system.
@@ -19,7 +19,7 @@ chmod u+x bin/magento
 ```
 #### Install Magento
 ```php
-$ bin/magento setup:install \
+bin/magento setup:install \
 --base-url=http://localhsot/your_dir \
 --db-host=localhost \
 --db-name=magento \
