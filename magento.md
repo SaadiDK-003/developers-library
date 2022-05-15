@@ -76,4 +76,3 @@ sudo php bin/magento cache:flush
 
 sudo chmod -R 777 pub/ generated/ var/
 ```
-
