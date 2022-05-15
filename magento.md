@@ -43,5 +43,4 @@ bin/magento setup:install \
 
 ```python
 bin/magento help setup:install
-
 ```
