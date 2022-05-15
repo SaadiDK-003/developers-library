@@ -50,3 +50,19 @@ bin/magento help setup:install
 ```python
 sudo apt install php7.4 libapache2-mod-php7.4 php7.4-common php7.4-gmp php7.4-curl php7.4-soap php7.4-bcmath php7.4-intl php7.4-mbstring php7.4-xmlrpc php7.4-mcrypt php7.4-mysql php7.4-gd php7.4-xml php7.4-cli php7.4-zip
 ```
+2. Or sometimes you might need to change in php.ini and it can be these lines to be update.
+```python
+sudo subl /etc/php/7.4/apache2/php.ini
+```
+```javascript
+file_uploads = On
+allow_url_fopen = On
+short_open_tag = On
+memory_limit = 512M
+upload_max_filesize = 128M
+max_execution_time = 3600
+```
+```python
+sudo systemctl restart apache2.service
+```
+
