@@ -18,5 +18,8 @@ Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
 Soruce Link: [Install LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04)
 * sudo a2enmod rewrite ~ `restart apache`
 
+#### Install ElasticSearch
+Soruce Link: [Install ElasticSearch](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-20-04)
+
 ### OwnerShip
 * sudo chown -R **`$USER:$USER`** /var/www/`your_domain` ~ in our case it is **`html`**
