@@ -59,4 +59,4 @@ sudo systemctl reload apache2
 sudo subl etc/hosts
 ``` 
 > after opening hosts file add this `127.0.0.1 magento.local`
-
+[hosts file preview](https://github.com/SaadiDK-003/developers-library/blob/master/img/hosts_file.PNG)
