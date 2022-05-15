@@ -34,6 +34,8 @@ Source Link: [ElasticSearch](https://www.digitalocean.com/community/tutorials/ho
 ```python
 sudo subl /etc/apache2/sites-available/000-default.conf
 ```
+#### Here you can see I have set `ServerName & ServerAlias` as `magento.local` you can set as you want.
+#### `DocumentRoot & Directory` the path should be like this if you have diffrent folder name `/var/www/html/[your_folder_name]` .
 ```python
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
