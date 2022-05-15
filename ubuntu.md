@@ -24,3 +24,27 @@ Soruce Link: [Install LAMP](https://www.digitalocean.com/community/tutorials/how
 #### Install ElasticSearch
 Soruce Link: [Install ElasticSearch](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-20-04)
 
+### Other Stuff ~ after doing all above things:
+
+* **`Virtual Host`**
+```php
+$sudo subl /etc/apache2/sites-available/000-default.conf
+```
+```python
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName magento.local
+        ServerAlias magento.local
+        DocumentRoot /var/www/html/Magento2
+        ErrorLog ${APACHE_LOG_DIR}/Magento2.log
+        CustomLog ${APACHE_LOG_DIR}/Magento2.log combined
+        <Directory /var/www/html/Magento2>
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+        </Directory>
+    </VirtualHost>
+```
+
+
+
