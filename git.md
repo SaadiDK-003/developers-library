@@ -14,7 +14,7 @@ Github Basic commands everyone should know ☻
   * git pull origin `[branch-name]` ~  if you want to add a specific branch to get pull from it.
 * git push ~ deliver your updated work on `github` repo. -> default branch `main`
   * git push origin `[branch-name]` ~ if you want specific branch stuff to upload on github.
-* git reset ~ this will reset the state of the current HEAD in easy words, like you have added 1 or 2 files in your branch and you wanna undo it, so use this comamnd.
+* git reset ~ this will reset the state of the current HEAD in easy words, like you have added 1 or 2 files in your branch and you wanna undo it, so use this command.
 
 ### *Mostly used in working environment are as follows: ~ top to bottom step by step*
 ###### Not telling all the scenarios that occurs, *freely ask if needed ☻*
