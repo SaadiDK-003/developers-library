@@ -1,4 +1,4 @@
-# TypeScript ~ is the sub directory of JS which is also used in web , mobile , Machine Learning & many more.
+# TypeScript ~ is the superpower of JS which is also used in web , mobile , Machine Learning & many more.
 
 ♦ Stuff related to TypeScript will be uploaded here...
 
@@ -45,4 +45,4 @@
 
 It would be best if you researched on typescript after the js on yourself I put your best reference but not worth I put that reference which is the best on the internet yet.
 
-We Our Add more references & links inn this repository...
+We Our Add more references & links inn this repository.
