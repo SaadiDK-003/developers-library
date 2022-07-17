@@ -14,18 +14,18 @@
 - [microsoft](https://devblogs.microsoft.com/typescript/)
 - [visualstudio](https://code.visualstudio.com/docs/languages/typescript)
 
-### Courses of JS :
+### Courses of TypeScript :
 
 - [Best Courses of TypeScript](https://medium.com/javarevisited/7-best-courses-to-learn-typescript-in-depth-58439e1ce729)
 
-### CheatSheets of JS :
+### CheatSheets of TypeScript :
 
 - [TypeScript Official](https://www.typescriptlang.org/cheatsheets)
 - [Sitepen](https://www.sitepen.com/blog/typescript-cheat-sheet)
 - [CheatSheet](https://rmolinamir.github.io/typescript-cheatsheet/)
 - [doabledanny](https://www.doabledanny.com/typescript-cheat-sheet) ~ Recommended
 
-### JavaScript Algorithms and Data Structures:
+### TypeScript Algorithms and Data Structures:
 
 - [Algorithms and Data Structures](https://github.com/FSou1/typescript-algorithms)
 
@@ -40,9 +40,10 @@
 - [freeCodeCamp](https://www.youtube.com/watch?v=gp5H0Vw39yw&ab_channel=freeCodeCamp.org)
 - [Academind](https://www.youtube.com/watch?v=BwuLxPH8IDs&ab_channel=Academind)
 - [TraversyMedia](https://www.youtube.com/watch?v=BCg4U1FzODs&t=52s&ab_channel=TraversyMedia)
+- [Fireship](https://www.youtube.com/watch?v=ydkQlJhodio&ab_channel=Fireship)
 
 ### Disclaimer :
 
 It would be best if you researched on typescript after the js on yourself I put your best reference but not worth I put that reference which is the best on the internet yet.
 
-We Our Add more references & links inn this repository.
+We Our Add more references & links in this repository near future.
