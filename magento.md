@@ -35,7 +35,7 @@ bin/magento setup:install \
 --timezone=America/Chicago \
 --use-rewrites=1 \
 --search-engine=elasticsearch7 \
---elasticsearch-host=es-host.example.com \
+--elasticsearch-host=es-host.example.com \    //Replace with es-host.example.com  to-> localhost
 --elasticsearch-port=9200 \
 --elasticsearch-index-prefix=magento2 \
 --elasticsearch-timeout=15 

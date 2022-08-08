@@ -49,6 +49,9 @@
 
 npx create-react-app app-name
 
+### 12 APIs that you as a developer will love it :
+- [Developer-API](https://dev.to/monicafidalgo/12-apis-that-you-as-a-developer-will-love-it-4ec6) ~ Recommended
+
 ### Disclaimer :
 
 It would be best if you researched on react after the js on yourself I put your best reference but not worth I put that reference which is the best on the internet yet.
