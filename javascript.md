@@ -31,6 +31,10 @@
 
 - [freecodecamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)
 
+### Different types of console.log:
+- [console.logs](https://devdojo.com/posandu/consolelog-alternatives-you-didnt-know)
+
+
 ### YouTube Channels In Hindi :
 
 - [ThapaTechnical](https://www.youtube.com/watch?v=KGkiIBTq0y0&t=104s&ab_channel=ThapaTechnical) ~ He explain all the topics very well.
