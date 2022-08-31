@@ -2,7 +2,8 @@
 
 ♦ Stuff related to Ubuntu will be uploaded here...
 
-Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
+- Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
+- Download Link [Ubuntu 22.04.1](https://releases.ubuntu.com/22.04/)
 
 #### After installing:
 
@@ -21,6 +22,11 @@ Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
 
 Source Link: [Install LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04)
 
+#### MySQL set `root` Password ~ `most of the time people get into this problem` ~ because by default root user comes with `no-password`
+- [How To Reset Your MySQL  Root Password ~ Digitalocean](https://www.digitalocean.com/community/tutorials/how-to-reset-your-mysql-or-mariadb-root-password-on-ubuntu-20-04)
+- [How to Change MySQL Root Password in Ubuntu ~ linuxhint](https://linuxhint.com/change-mysql-password-ubuntu-22-04/)
+
+#### This is a very useful command to enable .htaccess and other type of functionality
 - sudo a2enmod rewrite ~ `restart apache`
 
 ### OwnerShip
