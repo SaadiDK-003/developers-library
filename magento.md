@@ -12,14 +12,14 @@ sudo composer create-project --repository-url=https://repo.magento.com/ magento/
 * You must set read-write permissions for the web server group before you install the Magento software. This is necessary so that the command line can write files to the Magento file system.
 ```python
 cd /var/www/html/<magento install directory>
-find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
-find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
-chown -R :www-data . # Ubuntu
-chmod u+x bin/magento
+sudo find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
+sudo find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
+sudo chown -R :www-data .
+sudo chmod u+x bin/magento
 ```
 #### Install Magento
 ```python
-bin/magento setup:install \
+sudo bin/magento setup:install \
 --base-url=http://localhsot/your_dir \
 --db-host=localhost \
 --db-name=magento \
@@ -47,6 +47,13 @@ bin/magento help setup:install
 
 ### ♦ Issues sometimes you might encounter
 1. If it's a PHP extension missing issue you can run this line of code in your terminal.
+
+```python
+sudo apt install php libapache2-mod-php php-common php-gmp php-curl php-soap php-bcmath php-intl php-mbstring php-xmlrpc php-mysql php-gd php-xml php-cli php-zip
+```
+---
+#### If you have PHP 7.4 or lower version use with version number as mention below.
+---
 ```python
 sudo apt install php7.4 libapache2-mod-php7.4 php7.4-common php7.4-gmp php7.4-curl php7.4-soap php7.4-bcmath php7.4-intl php7.4-mbstring php7.4-xmlrpc php7.4-mcrypt php7.4-mysql php7.4-gd php7.4-xml php7.4-cli php7.4-zip
 ```
