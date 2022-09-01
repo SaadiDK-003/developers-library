@@ -20,7 +20,7 @@ sudo chmod u+x bin/magento
 #### Install Magento
 ```python
 sudo bin/magento setup:install \
---base-url=http://localhsot/your_dir \
+--base-url=http://localhost/your_dir \
 --db-host=localhost \
 --db-name=magento \
 --db-user=magento \
@@ -35,7 +35,7 @@ sudo bin/magento setup:install \
 --timezone=America/Chicago \
 --use-rewrites=1 \
 --search-engine=elasticsearch7 \
---elasticsearch-host=es-host.example.com \    //Replace with es-host.example.com  to-> localhost
+--elasticsearch-host=localhost \    //Replace with your host if you have one.
 --elasticsearch-port=9200 \
 --elasticsearch-index-prefix=magento2 \
 --elasticsearch-timeout=15 
