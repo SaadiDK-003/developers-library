@@ -74,7 +74,6 @@ sudo systemctl restart apache2.service
 ```
 
 ### Magento Commonly Used Commands:
-----
 ```python
 sudo php bin/magento setup:upgrade
 sudo php bin/magento setup:di:compile
@@ -85,8 +84,13 @@ sudo php bin/magento cache:flush
 sudo chmod -R 777 pub/ generated/ var/
 ```
 ### Easy way to run all commands at once:
-#### `but it is good to write commands and remember them, then use it like this with "&&" operator.`
----
+> `but it is good to write commands and remember them, then use it like this with "&&" operator.`
 ```python
 sudo php bin/magento setup:upgrade && sudo php bin/magento setup:di:compile && sudo php bin/magento setup:static-content:deploy -f && sudo php bin/magento indexer:reindex && sudo php bin/magento cache:flush && sudo chmod -R 777 pub/ generated/ var/
 ```
+---
+### For Front-end developers it is useful to run this command when ever you update `_module.less` or any sort of `.less` file.
+```python
+sudo rm -rf var/* pub/static/* && sudo php bin/magento cache:flush && sudo chmod -R 777 pub/ generated/ var/
+```
+
