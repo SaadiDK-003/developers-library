@@ -20,11 +20,11 @@ sudo chmod u+x bin/magento
 #### Install Magento
 ```python
 sudo bin/magento setup:install \
---base-url=http://localhost/your_dir \
+--base-url=http://example.com \
 --db-host=localhost \
 --db-name=magento \
---db-user=magento \
---db-password=magento \
+--db-user=root \
+--db-password=your_password \
 --admin-firstname=admin \
 --admin-lastname=admin \
 --admin-email=admin@admin.com \
@@ -35,7 +35,7 @@ sudo bin/magento setup:install \
 --timezone=America/Chicago \
 --use-rewrites=1 \
 --search-engine=elasticsearch7 \
---elasticsearch-host=localhost \    //Replace with your host if you have one.
+--elasticsearch-host=localhost \
 --elasticsearch-port=9200 \
 --elasticsearch-index-prefix=magento2 \
 --elasticsearch-timeout=15 
@@ -74,6 +74,7 @@ sudo systemctl restart apache2.service
 ```
 
 ### Magento Commonly Used Commands:
+----
 ```python
 sudo php bin/magento setup:upgrade
 sudo php bin/magento setup:di:compile
@@ -82,4 +83,10 @@ sudo php bin/magento indexer:reindex
 sudo php bin/magento cache:flush
 
 sudo chmod -R 777 pub/ generated/ var/
+```
+### Easy way to run all commands at once:
+#### `but it's good to write commands and remember them, then use it like this with "&&" operator.`
+---
+```python
+sudo php bin/magento setup:upgrade && sudo php bin/magento setup:di:compile && sudo php bin/magento setup:static-content:deploy -f && sudo php bin/magento indexer:reindex && sudo php bin/magento cache:flush && sudo chmod -R 777 pub/ generated/ var/
 ```
