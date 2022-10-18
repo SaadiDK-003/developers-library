@@ -93,4 +93,8 @@ sudo php bin/magento setup:upgrade && sudo php bin/magento setup:di:compile && s
 ```python
 sudo rm -rf var/* pub/static/* && sudo php bin/magento cache:flush && sudo chmod -R 777 pub/ generated/ var/
 ```
+### How to disable Magento 2 `Content Security Policy`
 
+```
+sudo php bin/magento module:disable Magento_Csp
+```

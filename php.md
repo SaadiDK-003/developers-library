@@ -41,3 +41,7 @@ sudo a2enmod php7.2
 ```
 sudo a2dismod php8.1
 ```
+> after doing this need to restart apache server
+```
+sudo systemctl restart apache2
+```
