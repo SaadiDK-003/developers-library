@@ -96,5 +96,13 @@ touch example.txt
 ```
 > Open any folder from `terminal`
 ```javascript
-xdg-open [folder path]
+xdg-open [folder path]  
+```
+> Find a file in `directory`
+```python
+ls | grep "name-of-file"
+```
+> Get your public `SSH` Key
+```javascript
+cat ~/.ssh/id_rsa.pub
 ```
