@@ -82,3 +82,15 @@ sudo subl /etc/hosts
 > after opening hosts file add this `127.0.0.1 magento.local`
 
 ![hosts file preview](https://github.com/SaadiDK-003/developers-library/blob/master/img/hosts_file.PNG "Hosts File Preview")
+
+
+# Ubuntu Commands ♦
+
+> To install any `.deb` file.
+```javascript
+sudo dpkg -i example.deb
+```
+> Create any file
+```python
+touch example.txt
+```
