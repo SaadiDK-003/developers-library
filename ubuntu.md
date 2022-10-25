@@ -91,6 +91,10 @@ sudo subl /etc/hosts
 sudo dpkg -i example.deb
 ```
 > Create any file
-```python
+```
 touch example.txt
+```
+> Open any folder from `terminal`
+```javascript
+xdg-open [folder path]
 ```
