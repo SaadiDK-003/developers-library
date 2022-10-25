@@ -34,7 +34,8 @@
    > and then visit your `repository` on browser, and do rest of stuff, that's simple. you can ask if have any query. ☻
    >
    > > you can use GitHub Desktop Version too. but personally I like `terminal` ♥
-
+8. `git config core.fileMode` default is `true` set this to `false`
+   - By doing this it will ignore all those files that has changed their chmod and git will not show them as modified files.
 ---
 
 ## ♦ Dangerous Commands ♦
