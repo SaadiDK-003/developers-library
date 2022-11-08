@@ -106,3 +106,29 @@ ls | grep "name-of-file"
 ```javascript
 cat ~/.ssh/id_rsa.pub
 ```
+---
+## Creating Swap File in Ubuntu
+---
+```
+sudo swapoff /swapfile
+```
+```
+sudo rm /swapfile
+```
+> Create new swap space of size 16 GB (16 * 1024 = 16384). bs is the block size. Basically bs * count = bytes to be allocated (in this case 16 GB). Here bs = 1M (M stands for mega, so we are assigning 1MB block size) and we are allocating 16384 * 1MB (=16GB) to swap.
+```
+sudo dd if=/dev/zero of=/swapfile bs=1M count=16384
+```
+> Give it the read/write permission for root
+```
+sudo chmod 600 /swapfile
+```
+> Format it to swap
+```
+sudo mkswap /swapfile
+```
+> Turn on swap again
+```
+sudo swapon /swapfile
+```
+> Now reboot the PC for the above changes to take place.
