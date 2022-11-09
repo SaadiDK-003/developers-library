@@ -37,6 +37,12 @@ Source Link: [Install LAMP](https://www.digitalocean.com/community/tutorials/how
 
 Source Link: [Composer](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-20-04)
 
+> if you need to `upgrade` or `downgrade` composer version use the command below:
+- here `number` will be depends e.g. `1` or `2`
+```
+sudo composer self-update --number
+```
+
 #### Install ElasticSearch
 
 Source Link: [ElasticSearch](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-20-04)
