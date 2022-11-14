@@ -5,6 +5,7 @@
 
 #### Magento Open Source ~ `Composer` link
 * change `<install-directory-name>` to your directory.
+* if you need to install specific version of magento then add `={version-number}` after `edition` e.g. `edition=2.4.5`
 ```javascript
 sudo composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
 ```
