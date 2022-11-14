@@ -113,7 +113,7 @@ ls | grep "name-of-file"
 cat ~/.ssh/id_rsa.pub
 ```
 ---
-## Creating Swap File in Ubuntu
+## Creating Swap File in Ubuntu ~  Thanks to [Saif Bin Zahid](https://github.com/saif-bin-zahid)
 ---
 ```
 sudo swapoff /swapfile
