@@ -3,6 +3,15 @@
 
 ### Before doing this please checkout `Ubuntu Section` [Install Ubuntu and useful stuff to start with Magento](https://github.com/SaadiDK-003/developers-library/blob/master/ubuntu.md)
 
+## Magento 2 `-` System requirements
+| Software dependencies | 2.4.5-p1 | 2.4.5 | 2.4.4-p2 | 2.4.4 | 2.4.3-p3 | 2.4.3 |
+| --------------------- | :------: | :---: | :------: | :---: | :------: | :---: |
+| Composer              |   2.2    |   2.2    |   2.1    |   2.1    |   1      |   1      |
+| Elasticsearch         |   7.17   |   7.17   |   7.16   |   7.16   |   7.16   |   7.10   |
+| MariaDB               |   10.4   |   same   |   same   |   same   |   same   |   same   |
+| MySQL                 |   8.0    |   same   |   same   |   same   |   same   |   same   |
+| PHP                   |   8.1    |   same   |   same   |   same   |   7.4    |   same   |
+
 #### Magento Open Source ~ `Composer` link
 * change `<install-directory-name>` to your directory.
 * if you need to install specific version of magento then add `={version-number}` after `edition` e.g. `edition=2.4.5`
