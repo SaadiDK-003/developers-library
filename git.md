@@ -55,4 +55,4 @@ git config core.fileMode false
 
 - [Git CheatSheet](https://cult.honeypot.io/reads/git-commands-cheat-sheet-for-all-developers/)
 
-#### Regardsz, [SaadiDK & taha123618](https://github.com/SaadiDK-003/)
+#### Regards, [SaadiDK & taha123618](https://github.com/SaadiDK-003/)
