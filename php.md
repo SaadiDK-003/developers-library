@@ -50,11 +50,11 @@ sudo systemctl restart apache2
   * There is only one alternative in link group php (providing /usr/bin/php): /usr/bin/php7.4
   * Nothing to configure.
 ```javascript
-sudo apt install php-cli 
+sudo apt install php-cli
 ```
 #### or for specific versoin:
 ```
-sudo apt install php8.1-cli 
+sudo apt install php8.1-cli
 ```
 
 
