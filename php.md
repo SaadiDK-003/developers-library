@@ -45,9 +45,10 @@ sudo a2dismod php8.1
 ```
 sudo systemctl restart apache2
 ```
-### When you see the below issue, you can resolve it. 
-* There is only one alternative in link group php (providing /usr/bin/php): /usr/bin/php7.4
-* Nothing to configure.
+### When you see the below issue, you can resolve it.
+* `Error:` 
+  * There is only one alternative in link group php (providing /usr/bin/php): /usr/bin/php7.4
+  * Nothing to configure.
 ```javascript
 sudo apt install php-cli 
 ```
