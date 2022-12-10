@@ -4,7 +4,7 @@
 
 ### VS Code - Add a new file or folder under the selected working directory
 
-#### Edit shortcuts file
+#### Edit shortcuts for `ctrl + n` AND `ctrl + shift + n`
 
 1. Hit `Cmd` + `Shift` + `P` and then find `Preferences: Open Keyboard Shortcuts (JSON)` open this file.
 2. after opening this file you will see something like this.
