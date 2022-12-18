@@ -103,8 +103,18 @@ sudo php bin/magento setup:upgrade && sudo php bin/magento setup:di:compile && s
 ```python
 sudo rm -rf var/* pub/static/* && sudo php bin/magento cache:flush && sudo chmod -R 777 pub/ generated/ var/
 ```
+### Disable TwoFactor Auth, when not able to access `admin` panel.
+```javascript
+sudo bin/magento module:disable Magento_TwoFactorAut
+```
+
 ### How to disable Magento 2 `Content Security Policy`
 
-```
+```javascript
 sudo php bin/magento module:disable Magento_Csp
+```
+
+### Change the `admin` user in magento
+```javascript
+sudo php bin/magento admin:user:create --admin-user=abc --admin-password=admin123 --admin-email=abc@example.com --admin-firstname=abc --admin-lastname=xyz
 ```
