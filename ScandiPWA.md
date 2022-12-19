@@ -19,7 +19,107 @@
 
 ### Create React Project :
 
+```
 npx create-scandipwa-app my-app
+```
+
+# Install ScandiPWA theme in Existing Magento 2 ?
+
+> First check version of node & redis :
+
+```
+node -v & redis-cli -v
+```
+
+### if your are not install magento 2 yet follow this [Link](https://github.com/SaadiDK-003/developers-library/blob/master/magento.md) to Install.
+
+### Before all the steps make sure your node & redis-cli is running..
+
+## Install the ScandiPWA Theme :
+
+We recommend you keep your theme source in a src/localmodules directory. You will then be able to configure composer to install the theme from here as a local module.
+
+```
+mkdir src/localmodules
+cd src/localmodules
+```
+
+## Then install the ScandiPWA :
+
+```
+npx create-scandipwa-app my-app
+```
+
+## Then go to your root dir of magento :
+
+```
+composer config repo.theme path src/localmodules/<your-app-name>
+```
+
+```
+composer install && composer update
+```
+
+## Then go to the dir of scandiPWA theme :
+
+```
+cd src/localmodules
+BUILD_MODE=magento yarn build
+```
+
+## Then come again in to magento dir where your magento is install :
+
+```
+composer require scandipwa/<your-app-name>
+```
+
+## Enable the ScandiPWA theme :
+
+```
+bin/magento setup:upgrade
+bin/magento cache:disable full_page
+bin/magento cache:flush
+```
+
+## After all of that steps follow change the env.php file to show the theme go app/etc/env.php :
+
+```
+'cache' => [
+    'frontend' => [
+        'default' => [
+            'id_prefix' => '908_',
+            'backend' => 'Cm_Cache_Backend_Redis',
+            'backend_options' => [
+                'server' => '127.0.0.1',
+                'database' => '0',
+                'port' => '6379',
+                'password' => '',
+                'compress_data' => '1',
+                'compression_lib' => ''
+            ]
+        ],
+        'page_cache' => [
+            'id_prefix' => '908_'
+        ]
+    ],
+    'persisted-query' => [
+        'redis' => [
+            'host' => 'localhost',
+            'port' => '6379',
+            'database' => '5',
+            'scheme' => 'tcp'
+        ]
+    ]
+],
+
+```
+
+## To See any change in your theme :
+
+```
+cd src/localmodules
+BUILD_MODE=magento yarn start
+```
 
 ### Disclaimer :
 
