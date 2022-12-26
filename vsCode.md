@@ -1,6 +1,6 @@
 # VSC ~ Visual Studio Code
 
-♦ Stuff related to VSC will be uploaded here.
+♦ Stuff related to VSC will be uploaded here...
 
 ### VS Code - Add a new file or folder under the selected working directory
 
