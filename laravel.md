@@ -7,5 +7,5 @@
 ---
 #### If you have created a `table schema` in project and wanted that table to update in `database` so run this command.
 ```javascript
-php artisan migrate:migrate
+php artisan migrate
 ```
