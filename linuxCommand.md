@@ -24,8 +24,8 @@ tar –xvzf file.tar.gz –C /home/user/destination
 ```
 ### Covnert `{ .png | .jpg | .jpeg }` files into `.webp` format.
 ---
-* ### `-q [ number | range 0-100 ]` for quality.
-* ### `-o` is for output.
+* `-q [ number | range 0-100 ]` for quality.
+* `-o` is for output.
 ```javascript
 cwebp -q 60 linux.png -o linux.webp
 ```
