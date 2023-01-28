@@ -9,3 +9,9 @@
 ```javascript
 php artisan migrate
 ```
+* #### or if you are willing to update the specific table you can run this command.
+```javascript
+php artisan migrate:refresh --path={path to your table}
+```
+> here path can be looks like this eg.
+>> database/migrations/2023_01_09_113112_create_messages_table.php
