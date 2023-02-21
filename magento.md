@@ -82,6 +82,9 @@ max_execution_time = 3600
 ```python
 sudo systemctl restart apache2.service
 ```
+3. If it's asking for `magento-repo` username `&` password
+    * `username` : 3862c183269ebe839ac417b7c689156a
+    * `password` : cffd1dbdbcd327dba737396ddde1ba77
 
 ### Magento Commonly Used Commands:
 ```python
