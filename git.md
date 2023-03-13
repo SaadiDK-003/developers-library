@@ -40,7 +40,12 @@ git config core.fileMode false
 ```
 > By doing this it will ignore all those files that has changed their `chmod` and git will not show them as modified files.
 ---
-
+## Clone from a Specific Branch
+```javascript
+git clone --branch <branchname> <remote-repo-url>
+```
+* or you can use `-b` short of `--branch`
+---
 ## ♦ Dangerous Commands ♦
 
 ### To remove folder/directory only from git repository and not from the local try 3 simple commands.
