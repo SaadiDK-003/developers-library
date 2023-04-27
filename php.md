@@ -56,6 +56,10 @@ sudo apt install php-cli
 ```
 sudo apt install php8.1-cli
 ```
-
+---
+#### To list apache2 mods use the following:
+```
+sudo a2query -m
+```
 
 
