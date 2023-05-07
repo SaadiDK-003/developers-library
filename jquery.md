@@ -31,7 +31,6 @@ $.fn.extend({showModal: function() {
 ```javascript
 dialog.addEventListener("click", function (e) {
     const dialogDimensions = dialog.getBoundingClientRect();
-    console.log(dialogDimensions);
     if (
     e.clientX < dialogDimensions.left ||
     e.clientX > dialogDimensions.right ||
