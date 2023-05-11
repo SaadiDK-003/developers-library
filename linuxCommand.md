@@ -29,3 +29,43 @@ tar –xvzf file.tar.gz –C /home/user/destination
 ```javascript
 cwebp -q 60 linux.png -o linux.webp
 ```
+---
+### Convert `{ .png | .jpg | .jpeg }` files in a `Direcory`.
+```javascript
+<?php
+$directory = 'your-directory-path'; // Replace with the directory path where your PNG and JPG files are located
+
+// Get all PNG and JPG files in the directory
+$pngFiles = glob($directory . '/*.png');
+$jpgFiles = glob($directory . '/*.jpg');
+
+// Combine PNG and JPG files into a single array
+$imageFiles = array_merge($pngFiles, $jpgFiles);
+
+// Loop through each image file and convert it to WebP
+foreach ($imageFiles as $imageFile) {
+    $webpFile = pathinfo($imageFile, PATHINFO_FILENAME) . '.webp';
+    
+    // Determine the file type (PNG or JPG) and create the appropriate image object
+    if (preg_match('/\.png$/i', $imageFile)) {
+        $image = imagecreatefrompng($imageFile);
+    } elseif (preg_match('/\.(jpeg|jpg)$/i', $imageFile)) {
+        $image = imagecreatefromjpeg($imageFile);
+    } else {
+        continue; // Skip files that are not PNG or JPG
+    }
+    
+    // Convert the image to WebP format with quality set to 80 (adjust as needed)
+    imagewebp($image, $webpFile, 90);
+    
+    // Free up memory
+    imagedestroy($image);
+    
+    echo '<pre>';
+    echo "Converted $imageFile to $webpFile\n";
+}
+
+echo "Conversion completed!";
+?>
+```
+* #### The above code will convert any `png | jpg | jpeg` file into `webp` format.
