@@ -108,7 +108,8 @@ sudo rm -rf var/* pub/static/* && sudo php bin/magento cache:flush && sudo chmod
 ```
 ### Disable TwoFactor Auth, when not able to access `admin` panel.
 ```javascript
-sudo bin/magento module:disable Magento_TwoFactorAut
+sudo php bin/magento module:disable Magento_AdminAdobeImsTwoFactorAuth
+sudo php bin/magento module:disable Magento_TwoFactorAut
 ```
 
 ### How to disable Magento 2 `Content Security Policy`
