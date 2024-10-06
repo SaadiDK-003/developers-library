@@ -4,3 +4,5 @@
 ## Set Up Theme Developer Tools
 ### Prerequisites
 > Before downloading the theme developer tools, complete the following tasks:
+* Install `Node.js` and Install `Gulp.js`.
+## Download Theme Developer Tools
