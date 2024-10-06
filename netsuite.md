@@ -9,9 +9,16 @@
 > Locate and download the theme developer tools appropriate for your implementation as described in the following procedure.
 
 * To download and extract theme developer tools:
-   * Log in to your NetSuite account.
-   * In NetSuite, go to Documents > Files > File Cabinet.
-   * Navigate to SuiteBundles/Bundle 521562/.
-   * Download the .zip file you find there:
->#### ThemeDevelopmentTools-24.1.`x`.zip (where `x` equals the latest minor release).
+1. Log in to your NetSuite account.
+2. In NetSuite, go to Documents > Files > File Cabinet.
+3. Navigate to SuiteBundles/Bundle 521562/.
+4. Download the .zip file you find there:
+### ThemeDevelopmentTools-24.1.`x`.zip (where `x` equals the latest minor release).
+5. Extract the .zip file to a location in your local environment. This becomes your root development directory for custom themes.
+6. Open a command line or terminal window.
+7. Access your root development directory created previously.
+8. Enter the following command to install required Node.js packages into this directory:
+```php
+npm install
+```
 
