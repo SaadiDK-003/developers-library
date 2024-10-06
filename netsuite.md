@@ -47,7 +47,8 @@ gulp theme:fetch
 ```javascript
 gulp theme:local
 ```
-* When you run the gulp theme:deploy command, this directory contains all of the files associated with the compiled application. After compilation, Gulp.js deploys the contents of this directory to your NetSuite file cabinet. Do not manually edit the files in this directory.
+* When you run the gulp theme:deploy command, this directory contains all of the files associated with the compiled application. After compilation, Gulp.js deploys the contents of this directory to your NetSuite file cabinet.
+### File/Folder ~ `DeployDistribution/` Do not manually edit the files in this directory.
 ```javascript
 gulp theme:deploy
 ```
