@@ -37,17 +37,17 @@ For more information, see [Create Integration Records for Applications to Use TB
 3. Paste the consumer `key/secret` in the `.env` file.
 
 ## Theme Development Files and Folders
-* When you initially run the gulp theme:fetch command, this directory contains all downloaded and customized theme and extension HTML, Sass, and asset files. This is the directory where you develop and maintain all of your theme and extension customizations.
+* When you initially run the `gulp theme:fetch` command, this directory contains all downloaded and customized theme and extension HTML, Sass, and asset files. This is the directory where you develop and maintain all of your theme and extension customizations.
 ### File/Folder ~  `Workspace/`
 ```javascript
 gulp theme:fetch
 ```
-* When you run the gulp theme:local command, this directory contains all of the files associated with the compiled application used by the local server. When you run gulp theme:local, `Gulp.js` deploys the contents of this directory to the local Node.js server.
+* When you run the `gulp theme:local` command, this directory contains all of the files associated with the compiled application used by the local server. When you run `gulp theme:local`, `Gulp.js` deploys the contents of this directory to the local Node.js server.
 ### File/Folder ~ `LocalDistribution/` Do not manually edit the files in this directory.
 ```javascript
 gulp theme:local
 ```
-* When you run the gulp theme:deploy command, this directory contains all of the files associated with the compiled application. After compilation, Gulp.js deploys the contents of this directory to your NetSuite file cabinet.
+* When you run the `gulp theme:deploy` command, this directory contains all of the files associated with the compiled application. After compilation, Gulp.js deploys the contents of this directory to your NetSuite file cabinet.
 ### File/Folder ~ `DeployDistribution/` Do not manually edit the files in this directory.
 ```javascript
 gulp theme:deploy
