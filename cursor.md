@@ -12,6 +12,26 @@
 ```javascript
 chmod +x cursor-[fileVersion].AppImage
 ```
+ ### `if you run into a problem below`
+ ```
+ ./cursor-0.42.4x86_64.AppImage
+dlopen(): error loading libfuse.so.2
+
+AppImages require FUSE to run. 
+You might still be able to extract the contents of this AppImage 
+if you run it with the --appimage-extract option. 
+See https://github.com/AppImage/AppImageKit/wiki/FUSE 
+for more information
+ ```
+ ### `follow below process, If you didn't encounter this error, you can skip this step`
+ - install libfuse2
+ ```javascript
+ sudo apt-get install libfuse2
+ ```
+ - now try again
+ ```javascript
+chmod +x cursor-[fileVersion].AppImage
+```
 3. Great! You can now run the .AppImage file either by running the command from the terminal or by opening the Cursor file directly from your Downloads folder
 ```javascript
 ./cursor-[fileVersion].AppImage
