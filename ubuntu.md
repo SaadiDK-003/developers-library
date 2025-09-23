@@ -5,7 +5,6 @@
 - Downlaod Link [Ubuntu 20.04.6](https://releases.ubuntu.com/20.04.6/)
 - Download Link [Ubuntu 22.04.5](https://releases.ubuntu.com/22.04.5/)
 - Download Link [Ubuntu 24.04.3](https://releases.ubuntu.com/24.04.3/)
-- Download Link [Ubuntu 24.04.3](https://releases.ubuntu.com/24.04.3/)
 - Download Link [Ubuntu 25.04](https://releases.ubuntu.com/25.04/)
 
 #### After installing:
