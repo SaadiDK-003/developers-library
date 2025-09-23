@@ -1,9 +1,12 @@
-# Ubuntu ~ 20.04.4
+# Ubuntu (Linux OS)
 
 ♦ Stuff related to Ubuntu will be uploaded here...
 
-- Downlaod Link [Ubuntu 20.04.4](https://releases.ubuntu.com/20.04.4/)
-- Download Link [Ubuntu 22.04.1](https://releases.ubuntu.com/22.04/)
+- Downlaod Link [Ubuntu 20.04.6](https://releases.ubuntu.com/20.04.6/)
+- Download Link [Ubuntu 22.04.5](https://releases.ubuntu.com/22.04.5/)
+- Download Link [Ubuntu 24.04.3](https://releases.ubuntu.com/24.04.3/)
+- Download Link [Ubuntu 24.04.3](https://releases.ubuntu.com/24.04.3/)
+- Download Link [Ubuntu 25.04](https://releases.ubuntu.com/25.04/)
 
 #### After installing:
 
@@ -17,6 +20,14 @@
 - install Chrome `FireFox preinstalled`
 - install FlameShot `very useful tool for taking screenShot and editing`
 - Install [phpMyAdmin](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-20-04) or [Dbeaver](https://computingforgeeks.com/install-and-configure-dbeaver-on-ubuntu-debian/) for MySQL ease of access.
+
+>#### some times when you hit `http://localhost/phpmyadmin` its says page not found or something just run the below command.
+```php
+sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+```
+```php
+sudo systemctl restart apache2
+```
 
 #### Install LAMP ~ ( Linux Apache MySQL PHP )
 
