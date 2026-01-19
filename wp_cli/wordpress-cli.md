@@ -1,0 +1,3 @@
+# WP CLI ~ WordPress Command Line Interface
+
+♦ Stuff related to WP-CLI will be uploaded here...
