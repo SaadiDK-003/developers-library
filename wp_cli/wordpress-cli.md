@@ -46,3 +46,5 @@ wp option update siteurl "https://yourdoman.com" && wp option update home "https
 | WP Path | Old URL | New URL | Dry Run |
 | :---: | :---: | :---: | :---: |
 | /var/www/html/yourFolder/ | https://oldpath.com | https://newpath.com | Yes/No |
+
+#### by doing `yes` Dry run will just give you the outcome of what will going to be change and where, will not update it when `no` it will execute.
