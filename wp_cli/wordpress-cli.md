@@ -2,7 +2,8 @@
 
 ♦ Stuff related to WP-CLI will be uploaded here...
 
-## installing through `install-wp.sh` script will also install `wp cli` if not present in your system, after `wp cli` install you can run other commands that are below else you have to first install it.
+### installing through `install-wp.sh` script will also install `wp cli` if not present in your system, after `wp cli` install you can run other commands that are below else you have to first install it.
+### here is the link [WordPress Cli](https://make.wordpress.org/cli/handbook/guides/installing/)
 ---
 >#### If you want to create a host + Virtual Host run it with this parameter below:
 ```javascript
