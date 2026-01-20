@@ -2,6 +2,9 @@
 
 ♦ Stuff related to Nginx will be uploaded here...
 
+#### Page Index
+* [Laravel Configuration](#laravel-best-practice-vhost-important)
+
 >### here is the link [Nginx guide](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04) from where you can install `Nginx` on your system.
 ---
 ### Steps to config a website on server.
