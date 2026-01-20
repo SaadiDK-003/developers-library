@@ -204,3 +204,212 @@ grep -R "server_name example.com" -n /etc/nginx/sites-enabled/
 grep -R "listen =" -n /etc/php/8.3/fpm/pool.d/www.conf
 ls -l /run/php/
 ```
+---
+### Below I have added all `4` platform configurations,
+* WordPress
+* Laravel
+* Custom PHP
+* Magento 2
+### so it will be easy to just copy paste and do some changes, else deep info is above that I hope you read already.
+
+## 1) `WordPress` (in /var/www/html/wp-site/)
+>Assume WordPress is installed directly inside:
+* `/var/www/html/wp-site/wp-config.php`
+* `/var/www/html/wp-site/index.php`
+
+>/etc/nginx/sites-available/wp-site.conf:
+```php
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+
+    root /var/www/html/wp-site;
+    index index.php index.html;
+
+    access_log /var/log/nginx/wp-site.access.log;
+    error_log  /var/log/nginx/wp-site.error.log;
+
+    # Allow Let's Encrypt HTTP challenge
+    location ^~ /.well-known/acme-challenge/ { allow all; }
+
+    # Security: block hidden files except .well-known
+    location ~ /\.(?!well-known).* { deny all; }
+
+    # Main WP routing
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    # PHP handling
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_read_timeout 300;
+
+        # If you get "upstream sent too big header"
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+    }
+
+    # Cache static files
+    location ~* \.(jpg|jpeg|png|gif|css|js|ico|svg|woff2?)$ {
+        expires 30d;
+        access_log off;
+    }
+
+    # Optional: deny xmlrpc if you don't use it
+    # location = /xmlrpc.php { deny all; }
+}
+```
+## 2) `Laravel` (in /var/www/html/laravel-app/, `root must be /public`)
+>Assume:
+* `/var/www/html/laravel-app/public/index.php`
+
+>/etc/nginx/sites-available/laravel-app.conf:
+```php
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+
+    root /var/www/html/laravel-app/public;
+    index index.php;
+
+    access_log /var/log/nginx/laravel.access.log;
+    error_log  /var/log/nginx/laravel.error.log;
+
+    location ^~ /.well-known/acme-challenge/ { allow all; }
+    location ~ /\.(?!well-known).* { deny all; }
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_read_timeout 300;
+    }
+
+    location ~* \.(jpg|jpeg|png|gif|css|js|ico|svg|woff2?)$ {
+        expires 30d;
+        access_log off;
+    }
+}
+```
+>Laravel permissions tip
+```php
+sudo chown -R www-data:www-data /var/www/html/laravel-app/storage /var/www/html/laravel-app/bootstrap/cache
+```
+## 3) Custom PHP (Front Controller) – “everything goes to index.php”
+Use this for your own MVC/framework-less apps, APIs, etc.
+>Assume:
+* `/var/www/html/custom-app/public/index.php`
+* `You want public/ as docroot`
+
+>/etc/nginx/sites-available/custom-app.conf:
+```php
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+
+    root /var/www/html/custom-app/public;
+    index index.php index.html;
+
+    access_log /var/log/nginx/custom-app.access.log;
+    error_log  /var/log/nginx/custom-app.error.log;
+
+    location ^~ /.well-known/acme-challenge/ { allow all; }
+    location ~ /\.(?!well-known).* { deny all; }
+
+    # Front controller routing
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_read_timeout 300;
+    }
+
+    location ~* \.(jpg|jpeg|png|gif|css|js|ico|svg|woff2?)$ {
+        expires 30d;
+        access_log off;
+    }
+}
+```
+## 4) `Magento 2` (production-safe baseline)
+Magento has special needs for /pub, static/media, and blocking sensitive paths.
+>Assume Magento is here:
+* `/var/www/html/magento/`
+* `Magento entrypoint is:`
+  * /var/www/html/magento/pub/index.php So Nginx root should be:
+* `/var/www/html/magento/pub`
+
+>/etc/nginx/sites-available/magento.conf:
+```php
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+
+    set $MAGE_ROOT /var/www/html/magento;
+    root $MAGE_ROOT/pub;
+    index index.php;
+
+    access_log /var/log/nginx/magento.access.log;
+    error_log  /var/log/nginx/magento.error.log;
+
+    location ^~ /.well-known/acme-challenge/ { allow all; }
+    location ~ /\.(?!well-known).* { deny all; }
+
+    # Protect sensitive files
+    location ~* /(app|bin|dev|lib|phpserver|setup|var|vendor)/ { deny all; }
+    location ~* /(.user.ini|composer.json|composer.lock|gruntfile.js|package.json|package-lock.json|yarn.lock) { deny all; }
+
+    # Main Magento routing
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    # PHP
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+
+        fastcgi_read_timeout 600;
+
+        # Common Magento needs
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+    }
+
+    # Cache static assets aggressively
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|webp|woff2?)$ {
+        expires 1y;
+        access_log off;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+
+    # Media - allow but don’t execute PHP in media
+    location /media/ {
+        try_files $uri $uri/ /get.php?$args;
+        location ~* \.php$ { deny all; }
+    }
+
+    # Static - in production these are files
+    location /static/ {
+        try_files $uri $uri/ /static.php?$args;
+    }
+}
+```
+>Magento permissions (quick rule of thumb)
+* keep code owned by your deploy user
+* give writable dirs to www-data:
+```php
+sudo chown -R www-data:www-data /var/www/html/magento/var /var/www/html/magento/generated /var/www/html/magento/pub/static /var/www/html/magento/pub/media
+```
