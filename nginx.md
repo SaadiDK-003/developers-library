@@ -156,3 +156,47 @@ sudo nano /etc/php/8.3/fpm/php.ini
   * `upload_max_filesize = 64M`
   * `post_max_size = 64M`
   * `max_execution_time = 300`
+```php
+sudo systemctl restart php8.3-fpm
+```
+## Permissions: simple rules that prevent pain
+### Recommended ownership
+* code: owned by your deploy user
+* runtime dirs (cache/logs/uploads): writable by www-data
+>Example:
+```php
+sudo chown -R deploy:deploy /var/www/html/myapp
+sudo find /var/www/html/myapp -type d -exec chmod 755 {} \;
+sudo find /var/www/html/myapp -type f -exec chmod 644 {} \;
+```
+>Laravel writable dirs:
+```php
+sudo chown -R www-data:www-data /var/www/html/myapp/storage /var/www/html/myapp/bootstrap/cache
+```
+>WordPress writable dirs:
+```php
+sudo chown -R www-data:www-data /var/www/html/wp/wp-content/uploads
+```
+## Debugging workflow (the commands you’ll use daily)
+>Nginx config test
+```php
+sudo nginx -t
+```
+>Logs
+```php
+tail -n 200 /var/log/nginx/error.log
+tail -n 200 /var/log/nginx/example.error.log
+```
+>PHP-FPM status
+```php
+systemctl status php8.3-fpm --no-pager
+```
+>Find the active vhost handling a domain
+```php
+grep -R "server_name example.com" -n /etc/nginx/sites-enabled/
+```
+>Check which socket PHP is using
+```php
+grep -R "listen =" -n /etc/php/8.3/fpm/pool.d/www.conf
+ls -l /run/php/
+```
