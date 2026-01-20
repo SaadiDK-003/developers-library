@@ -5,6 +5,7 @@
 ### | Page Index |
 1. [Install Certbot](#https-lets-encrypt-on-hostinger-vps--the-correct-certbot-method)
 2. [Laravel Configuration](#laravel-best-practice-vhost-important)
+3. [Quick config file example for all 4 platforms)](#below-i-have-added-all-4-platform-configurations)
 
 >### here is the link [Nginx guide](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04) from where you can install `Nginx` on your system.
 ---
@@ -206,10 +207,10 @@ ls -l /run/php/
 ```
 ---
 ### Below I have added all `4` platform configurations,
-* WordPress
-* Laravel
-* Custom PHP
-* Magento 2
+* `WordPress`
+* `Laravel`
+* `Custom PHP`
+* `Magento 2`
 ### so it will be easy to just copy paste and do some changes, else deep info is above that I hope you read already.
 
 ## 1) `WordPress` (in /var/www/html/wp-site/)
