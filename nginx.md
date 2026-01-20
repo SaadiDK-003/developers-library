@@ -103,3 +103,56 @@ sudo certbot --nginx -d example.com -d www.example.com
 ```php
 sudo certbot renew --dry-run
 ```
+
+## Laravel best-practice vhost (important)
+* Laravel must point to `/public`.
+* Config:
+```php
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name myapp.com www.myapp.com;
+
+    root /var/www/html/myapp/public;
+    index index.php;
+
+    access_log /var/log/nginx/myapp.access.log;
+    error_log  /var/log/nginx/myapp.error.log;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_read_timeout 300;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+```
+## PHP settings you’ll actually change (correct way)
+
+### A) CLI vs FPM configs are different
+* #### CLI config:
+```php
+php -i | grep "Loaded Configuration File"
+```
+* #### FPM config:
+```php
+php-fpm8.3 -i | grep "Loaded Configuration File" || true
+```
+>Most common file:
+* #### `/etc/php/8.3/fpm/php.ini`
+```php
+sudo nano /etc/php/8.3/fpm/php.ini
+```
+* ### Typical values:
+  * `memory_limit = 512M`
+  * `upload_max_filesize = 64M`
+  * `post_max_size = 64M`
+  * `max_execution_time = 300`
