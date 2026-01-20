@@ -211,7 +211,7 @@ ls -l /run/php/
 * `Laravel`
 * `Custom PHP`
 * `Magento 2`
-### so it will be easy to just copy paste and do some changes, else deep info is above that I hope you read already.
+### so it will be easy to just copy paste and do some changes, else deep info is above that I hope you have read already.
 
 ## 1) `WordPress` (in /var/www/html/wp-site/)
 >Assume WordPress is installed directly inside:
