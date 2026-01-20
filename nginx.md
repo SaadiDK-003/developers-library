@@ -97,7 +97,7 @@ sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 ```
 ### Add `SSL` with `Certbot` (when DNS is correct)
 ```php
-sudo certbot --nginx -d example.com
+sudo certbot --nginx -d example.com -d www.example.com
 ```
 >And verify:
 ```php
