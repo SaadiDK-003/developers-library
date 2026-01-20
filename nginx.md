@@ -2,8 +2,9 @@
 
 ♦ Stuff related to Nginx will be uploaded here...
 
-#### Page Index
-* [Laravel Configuration](#laravel-best-practice-vhost-important)
+### | Page Index |
+1. [Install Certbot](#https-lets-encrypt-on-hostinger-vps--the-correct-certbot-method)
+2. [Laravel Configuration](#laravel-best-practice-vhost-important)
 
 >### here is the link [Nginx guide](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04) from where you can install `Nginx` on your system.
 ---
