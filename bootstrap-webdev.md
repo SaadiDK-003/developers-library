@@ -370,11 +370,11 @@ main "$@"
 ```
 chmod +x bootstrap-webdev.sh
 ```
-> Apache + PHP 8.2/8.3 + no OpenSearch
+> Apache
 ```
-sudo ./bootstrap-webdev.sh --stack apache --php "8.2,8.3" --default-php 8.3 --opensearch no
+sudo ./bootstrap-webdev.sh --stack apache --php "8.2,8.3" --default-php 8.3
 ```
-> Nginx + PHP 8.2/8.3/8.4 + OpenSearch yes
+> Nginx
 ```
 sudo ./bootstrap-webdev.sh --stack nginx --php "8.2,8.3,8.4" --default-php 8.4 --opensearch yes
 ```
