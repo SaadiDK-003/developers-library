@@ -1,4 +1,4 @@
-## Install `WordPress` USING CLI
+## Install `WordPress` Using `CLI`
 
 ```php
 #!/bin/bash
