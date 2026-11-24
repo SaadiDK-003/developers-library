@@ -5,10 +5,12 @@
 ### installing through `install-wp.sh` script will also install `wp cli` if not present in your system, after `wp cli` install you can run other commands that are below else you have to first install it.
 ### here is the link [WordPress Cli](https://make.wordpress.org/cli/handbook/guides/installing/)
 ---
->#### If you want to create a host + Virtual Host run it with this parameter below:
-```javascript
+>#### To update `/etc/hosts` and Apache's `000-default.conf`, enter `1` at the Apache setup prompt or run the installer with the flag below.
+```bash
 sudo CREATE_VIRTUAL_HOST=1 bash install-wp.sh
 ```
+
+Pressing Enter accepts `0` and skips both updates.
 
 >#### If you want to give 777 permission to wp directory pass this parameter below, this is because of images are not going into media directory because of permission issue:
 ```javascript

@@ -75,6 +75,11 @@ prompt_var WP_ADMIN_EMAIL       "WP admin email"                   "admin@exampl
 prompt_var WP_PATH              "WordPress install path"           "/var/www/html/wordpress-cli"
 # prompt_var STATIC_SITE_PATH     "Static site path (leave blank to skip)"   ""
 prompt_var MENU_NAME            "Primary menu name"                "Main Menu"
+prompt_var CREATE_VIRTUAL_HOST  "Configure /etc/hosts and Apache (1=yes, 0=no)" "0"
+case "$CREATE_VIRTUAL_HOST" in
+  0|1) ;;
+  *) echo "❌ CREATE_VIRTUAL_HOST must be 0 or 1." >&2; exit 1 ;;
+esac
 
 # Derived (don’t prompt)
 # STATIC_IMAGES_PATH="$STATIC_SITE_PATH/images"
@@ -91,6 +96,7 @@ echo "  WP_TITLE=$WP_TITLE"
 echo "  WP_ADMIN_USER=$WP_ADMIN_USER"
 echo "  WP_ADMIN_EMAIL=$WP_ADMIN_EMAIL"
 echo "  WP_PATH=$WP_PATH"
+echo "  CREATE_VIRTUAL_HOST=$CREATE_VIRTUAL_HOST"
 # echo "  STATIC_SITE_PATH=${STATIC_SITE_PATH:-<empty>}"
 # echo "  STATIC_IMAGES_PATH=$STATIC_IMAGES_PATH"
 # echo "  STATIC_CSS_PATH=$STATIC_CSS_PATH"
@@ -157,79 +163,73 @@ ensure_wp_cli
 mkdir -p "$WP_PATH"
 cd "$WP_PATH" || exit 1
 
-# ---------- Host & Apache VirtualHost (non-destructive) ----------
-CREATE_VIRTUAL_HOST="${CREATE_VIRTUAL_HOST:-0}"
-
-if [ "$CREATE_VIRTUAL_HOST" = "1" ]; then
-  echo "🌐 Preparing local host + Apache vhost..."
-
-  # Derive host from WP_URL
-  WP_HOST="$(echo "$WP_URL" | sed -E 's~^[a-z]+://~~; s~/.*$~~; s~:.*$~~')"
-  [ -z "$WP_HOST" ] && { echo "❌ Could not derive host from WP_URL=$WP_URL"; exit 1; }
-  echo "🔎 Derived host: $WP_HOST"
-
-  # sudo helper
-  if [ "$(id -u)" -eq 0 ]; then SUDO=""; else SUDO="sudo"; fi
-
-  # 1) /etc/hosts (append if missing, with newline safety + dedupe)
-  HOSTS_FILE="/etc/hosts"
-  if [ "$(id -u)" -eq 0 ]; then SUDO=""; else SUDO="sudo"; fi
-
-  # Only append if hostname not already mapped on 127.0.0.1
-  if ! grep -Eq "^[[:space:]]*127\.0\.0\.1[[:space:]].*\b${WP_HOST}\b" "$HOSTS_FILE"; then
-    echo "🧾 Adding hosts entry → 127.0.0.1 ${WP_HOST}"
-
-    # Ensure file ends with a newline, otherwise appending will glue to last line
-    if [ -n "$($SUDO tail -c1 "$HOSTS_FILE" 2>/dev/null)" ]; then
-      $SUDO sh -c "printf '\n' >> '$HOSTS_FILE'"
-    fi
-
-    # Remove any existing non-comment lines containing the host (dedupe/clean)
-    TMP_H="$(mktemp)"
-    $SUDO awk -v host="$WP_HOST" '
-      /^[[:space:]]*#/ { print; next }               # keep comments
-      {
-        drop=0
-        for (i=1;i<=NF;i++) if ($i==host) { drop=1; break }
-        if (!drop) print
-      }' "$HOSTS_FILE" > "$TMP_H"
-    $SUDO cp "$TMP_H" "$HOSTS_FILE"
-    rm -f "$TMP_H"
-
-    # Append the correct mapping (with its own newline)
-    $SUDO sh -c "printf '127.0.0.1\t%s\n' '$WP_HOST' >> '$HOSTS_FILE'"
-  else
-    echo "ℹ️ Hosts entry for ${WP_HOST} already present."
+# ---------- Host & Apache VirtualHost ----------
+configure_local_site() (
+  WP_HOST="$(printf '%s\n' "$WP_URL" | sed -E 's~^[a-zA-Z]+://~~; s~[/?#].*$~~; s~:.*$~~')"
+  if ! [[ "$WP_HOST" =~ ^[a-zA-Z0-9_][a-zA-Z0-9_.-]*$ ]]; then
+    echo "❌ Use a hostname in WP_URL to configure the local site." >&2
+    exit 1
   fi
 
-  # 2) Apache block inside 000-default.conf (append or update only our marked block)
-  if command -v apache2 >/dev/null 2>&1 || ps -A | grep -q apache2; then
-    VHOST_FILE="/etc/apache2/sites-available/000-default.conf"
-    [ -f "$VHOST_FILE" ] || { echo "❌ $VHOST_FILE not found"; exit 1; }
+  HOSTS_FILE="/etc/hosts"
+  VHOST_FILE="/etc/apache2/sites-available/000-default.conf"
+  ENABLED_VHOST_FILE="/etc/apache2/sites-enabled/000-default.conf"
+  if ! command -v apache2ctl >/dev/null || [ ! -f "$VHOST_FILE" ]; then
+    echo "❌ Local site setup requires Apache and $VHOST_FILE." >&2
+    exit 1
+  fi
+  if ! [ "$VHOST_FILE" -ef "$ENABLED_VHOST_FILE" ]; then
+    echo "❌ Apache's 000-default.conf is disabled. Enable it with sudo a2ensite 000-default.conf and try again." >&2
+    exit 1
+  fi
 
-    TS="$(date +%Y%m%d-%H%M%S)"
-    $SUDO cp "$VHOST_FILE" "${VHOST_FILE}.bak.${TS}"
-    echo "🗄️  Backup created: ${VHOST_FILE}.bak.${TS}"
+  WORK_DIR="$(mktemp -d)" || exit 1
+  trap 'rm -rf -- "$WORK_DIR"' EXIT
 
-    LOG_STEM="$(basename "$WP_PATH" | tr -cd '[:alnum:]_-')"
-    [ -z "$LOG_STEM" ] && LOG_STEM="wordpress"
+  # Match hostname fields exactly and preserve aliases and comments.
+  if ! awk -v host="$WP_HOST" '
+    {
+      original = $0
+      comment_at = index($0, "#")
+      sub(/#.*/, "")
+      entry = $1
+      removed = 0
+      for (i = 2; i <= NF; i++) {
+        if (tolower($i) != tolower(host) || $1 == "127.0.0.1") {
+          entry = entry " " $i
+          if (tolower($i) == tolower(host)) mapped = 1
+        } else {
+          removed = 1
+        }
+      }
+      if (!removed) print original
+      else if (entry != $1) print entry (comment_at ? " " substr(original, comment_at) : "")
+      else if (comment_at) print substr(original, comment_at)
+    }
+    END { if (!mapped) print "127.0.0.1\t" host }
+  ' "$HOSTS_FILE" > "$WORK_DIR/hosts"; then
+    echo "❌ Could not prepare $HOSTS_FILE." >&2
+    exit 1
+  fi
 
-    BLOCK_BEGIN="# BEGIN wp-cli ${WP_HOST}"
-    BLOCK_END="# END wp-cli ${WP_HOST}"
+  LOG_STEM="$(basename "$WP_PATH" | tr -cd '[:alnum:]_-')"
+  LOG_STEM="${LOG_STEM:-wordpress}"
+  APACHE_PATH="${WP_PATH//\\/\\\\}"
+  APACHE_PATH="${APACHE_PATH//\"/\\\"}"
+  BLOCK_BEGIN="# BEGIN wp-cli ${WP_HOST}"
+  BLOCK_END="# END wp-cli ${WP_HOST}"
 
-    # Build fresh block content
-    TMP_BLOCK="$(mktemp)"
-    cat > "$TMP_BLOCK" <<EOF
+  cat > "$WORK_DIR/vhost" <<EOF || exit 1
 ${BLOCK_BEGIN}
 <VirtualHost *:80>
     ServerName ${WP_HOST}
     ServerAlias ${WP_HOST}
-    DocumentRoot ${WP_PATH}
+    DocumentRoot "${APACHE_PATH}"
 
     ErrorLog \${APACHE_LOG_DIR}/${LOG_STEM}.error.log
     CustomLog \${APACHE_LOG_DIR}/${LOG_STEM}.access.log combined
 
-    <Directory ${WP_PATH}>
+    <Directory "${APACHE_PATH}">
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
@@ -238,46 +238,68 @@ ${BLOCK_BEGIN}
 ${BLOCK_END}
 EOF
 
-    # If our block exists → replace it; else → append it
-    if grep -qF "$BLOCK_BEGIN" "$VHOST_FILE"; then
-      echo "✏️ Updating existing vhost block for ${WP_HOST} in 000-default.conf"
-      TMP_FILE="$(mktemp)"
-      awk -v start="$BLOCK_BEGIN" -v end="$BLOCK_END" '
-        BEGIN {inblk=0}
-        {
-          if ($0==start) {print start; inblk=1; next}
-          if ($0==end)   {print end; inblk=0; next}
-          if (!inblk) print
-        }' "$VHOST_FILE" > "$TMP_FILE"
-      # Insert fresh block at the end (keeps order, avoids nested awk complexity)
-      $SUDO bash -c "cat '$TMP_FILE' > '$VHOST_FILE'"
-      $SUDO bash -c "printf '\n\n' >> '$VHOST_FILE'"
-      $SUDO bash -c "cat '$TMP_BLOCK' >> '$VHOST_FILE'"
-      rm -f "$TMP_FILE"
-    else
-      echo "➕ Appending new vhost block for ${WP_HOST} to 000-default.conf"
-      $SUDO bash -c "printf '\n\n' >> '$VHOST_FILE'"
-      $SUDO bash -c "cat '$TMP_BLOCK' >> '$VHOST_FILE'"
-    fi
-    rm -f "$TMP_BLOCK"
-
-    # Ensure mod_rewrite, test & reload (no site renames/enables here)
-    $SUDO a2enmod rewrite >/dev/null 2>&1 || true
-    echo "🧪 apache2ctl configtest..."
-    if $SUDO apache2ctl configtest; then
-      echo "🔄 Reloading Apache..."
-      $SUDO systemctl reload apache2 || $SUDO service apache2 reload
-      echo "✅ Apache reloaded with ${WP_HOST} → ${WP_PATH} (inside 000-default.conf)"
-    else
-      echo "❌ Apache config test failed — restoring backup."
-      $SUDO cp "${VHOST_FILE}.bak.${TS}" "$VHOST_FILE"
-      exit 1
-    fi
-  else
-    echo "⚠️ Apache not detected — skipping VirtualHost update."
+  # Replace the managed block in place. Reject an unterminated block before writing.
+  if ! awk -v start="$BLOCK_BEGIN" -v end="$BLOCK_END" -v block="$WORK_DIR/vhost" '
+    function print_block(   line, status) {
+      while ((status = (getline line < block)) > 0) print line
+      if (status < 0) exit 1
+      close(block)
+    }
+    $0 == start {
+      if (!found) print_block()
+      found = in_block = 1
+      next
+    }
+    $0 == end && in_block { in_block = 0; next }
+    !in_block { print }
+    END {
+      if (in_block) exit 1
+      if (!found) {
+        if (NR) print ""
+        print_block()
+      }
+    }
+  ' "$VHOST_FILE" > "$WORK_DIR/000-default.conf"; then
+    echo "❌ Could not prepare $VHOST_FILE. Check that its managed block has an end marker." >&2
+    exit 1
   fi
+
+  if ! $SUDO a2enmod rewrite >/dev/null; then
+    echo "❌ Could not enable Apache's rewrite module." >&2
+    exit 1
+  fi
+  BACKUP_FILE="$($SUDO mktemp "${VHOST_FILE}.bak.XXXXXXXX")" || exit 1
+  if ! $SUDO cp -- "$VHOST_FILE" "$BACKUP_FILE"; then
+    echo "❌ Could not back up $VHOST_FILE." >&2
+    exit 1
+  fi
+
+  if ! $SUDO cp -- "$WORK_DIR/000-default.conf" "$VHOST_FILE" ||
+     ! $SUDO apache2ctl configtest ||
+     ! { $SUDO systemctl reload apache2 || $SUDO service apache2 reload; }; then
+    echo "❌ Apache configuration or reload failed for $WP_HOST." >&2
+    if $SUDO cp -- "$BACKUP_FILE" "$VHOST_FILE"; then
+      echo "Restored $VHOST_FILE from $BACKUP_FILE." >&2
+    else
+      echo "❌ Could not restore $VHOST_FILE. Backup is at $BACKUP_FILE." >&2
+    fi
+    exit 1
+  fi
+
+  if ! cmp -s -- "$WORK_DIR/hosts" "$HOSTS_FILE" &&
+     ! $SUDO cp -- "$WORK_DIR/hosts" "$HOSTS_FILE"; then
+    echo "❌ Apache was configured, but writing $HOSTS_FILE failed for $WP_HOST." >&2
+    exit 1
+  fi
+
+  echo "✅ /etc/hosts and Apache configured for $WP_HOST → $WP_PATH"
+)
+
+if [ "$CREATE_VIRTUAL_HOST" = "1" ]; then
+  echo "🌐 Preparing local host + Apache vhost..."
+  configure_local_site || exit 1
 else
-  echo "⏭️ CREATE_VIRTUAL_HOST!=1 — skipping hosts + 000-default.conf work."
+  echo "⏭️ Skipping /etc/hosts and Apache setup. Set CREATE_VIRTUAL_HOST=1 to enable it."
 fi
 
 # ---------- Database Setup ----------
@@ -328,7 +350,8 @@ PHP
     echo "ℹ️ max_execution_time snippet already present; skipping."
   fi
 else
-  echo "❌ wp-config.php not found at $WPCFG (did wp config create run?)"
+  echo "❌ wp-config.php not found at $WPCFG." >&2
+  exit 1
 fi
 
 # ---------- Install WP ----------
@@ -339,7 +362,10 @@ wp core install \
   --admin_user="$WP_ADMIN_USER" \
   --admin_password="$WP_ADMIN_PASS" \
   --admin_email="$WP_ADMIN_EMAIL" \
-  --path="$WP_PATH" --allow-root
+  --path="$WP_PATH" --allow-root || {
+    echo "❌ WP-CLI could not install WordPress at $WP_URL." >&2
+    exit 1
+  }
 
 # ---------- Install local plugins (folder or zip) ----------
 echo "📦 Installing local plugins from script/launch directory (dir or zip)..."
@@ -899,4 +925,8 @@ fi
 # 6) Flush caches
 wp cache flush --allow-root || true
 
-echo "✅ WordPress installed successfully at $WP_URL"
+if [ "$CREATE_VIRTUAL_HOST" = "1" ]; then
+  echo "✅ WordPress installed successfully at $WP_URL. Local hostname and Apache setup completed."
+else
+  echo "✅ WordPress installed with site URL $WP_URL. Local hostname and Apache setup were skipped."
+fi
